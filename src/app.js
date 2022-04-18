@@ -35,7 +35,7 @@ function ComponenteImage(props) {
           </b>
           <h3>
             {texto[2].toLowerCase() === "masculino" ? "Prezado" : "Prezada"}{" "}
-            <b>{texto[0]}</b>
+            <b>{texto[0]},</b>
           </h3>
           <h3>
             24 meses depois,{" "}
@@ -80,7 +80,9 @@ function ComponenteImage(props) {
         </div>
         <button
           className="download"
-          onClick={() => exportComponentAsJPEG(componentRef)}
+          onClick={() =>
+            exportComponentAsJPEG(componentRef, { fileName: texto[0] })
+          }
         >
           Exportar como JPEG
         </button>

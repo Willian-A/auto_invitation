@@ -81,7 +81,7 @@ body {
 .container .blue_hour .forma {
   position: absolute;
   right: 0;
-  top: 0;
+  top: -3px;
 }
 
 .container .blue_hour .data {
@@ -177,5 +177,9 @@ h4 {
   margin: 1rem auto;
 }
 h4.small {
-  max-width: 300px;
+  max-width: 320px;
+}
+
+h4 b {
+  font-family: "Poppins";
 }

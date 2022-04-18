@@ -16,11 +16,13 @@ import fru_azul from "../static/fru_azul.png";
 import powered_by from "../static/powered_by.png";
 
 function ComponenteImage(props) {
+  let array = [];
   props.values.shift();
   let values = props.values;
-  return values.map((texto, index) => {
+  let teste = values.map((texto, index) => {
     const componentRef = React.useRef();
-    return (
+    // array.push({ ref: componentRef, nome: texto[0].trim() });
+    array.push(
       <div key={index}>
         <div ref={componentRef} className="container">
           <img src={fundo_grade} alt="" className="fundo" />
@@ -35,14 +37,18 @@ function ComponenteImage(props) {
           </b>
           <h3>
             {texto[2].toLowerCase() === "masculino" ? "Prezado" : "Prezada"}{" "}
-            <b>{texto[0]},</b>
+            <b>{texto[0].trim()},</b>
           </h3>
           <h3>
             24 meses depois,{" "}
             <b className="fru_azul">
               VOCÊ <img src={fru_azul} alt="" />
             </b>
-            <br /> é nosso convidado para o grande reencontro da Saúde.
+            <br /> é{" "}
+            {texto[2].toLowerCase() === "masculino"
+              ? "nosso convidado"
+              : "nossa convidada"}{" "}
+            para o grande reencontro da Saúde.
           </h3>
           <div className="blue_hour">
             <img src={forma} alt="" className="forma" />
@@ -78,17 +84,30 @@ function ComponenteImage(props) {
           </div>
           <img src={powered_by} alt="" className="powered_by" />
         </div>
-        <button
-          className="download"
-          onClick={() =>
-            exportComponentAsJPEG(componentRef, { fileName: texto[0] })
-          }
-        >
-          Exportar como JPEG
-        </button>
       </div>
     );
+    return {
+      ref: componentRef,
+      nome: texto[0].trim(),
+    };
   });
+
+  return (
+    <>
+      <button
+        className="download"
+        onClick={(event) => {
+          event.target.disabled = true;
+          teste.forEach((value) => {
+            exportComponentAsJPEG(value.ref, { fileName: value.nome });
+          });
+        }}
+      >
+        Exportar tudo como JPEG
+      </button>
+      {array}
+    </>
+  );
 }
 
 function onChange(event) {
@@ -114,8 +133,8 @@ function Generator(props) {
 
 function App() {
   const [lista, setLista] = React.useState([]);
+  const [refs, setRefs] = React.useState();
   const { CSVReader } = useCSVReader();
-  React.useEffect(() => console.log(lista), [lista]);
   return (
     <>
       <CSVReader
@@ -132,7 +151,7 @@ function App() {
           </div>
         )}
       </CSVReader>
-      <ComponenteImage values={lista} />
+      <ComponenteImage values={lista} refs={refs} setRefs={setRefs} />
     </>
   );
 }

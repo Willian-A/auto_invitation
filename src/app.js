@@ -6,6 +6,8 @@ import {
   exportComponentAsPNG,
 } from "react-component-export-image";
 import { useCSVReader } from "react-papaparse";
+import JSZip from "jszip";
+import FileSaver from "file-saver";
 
 import "./style.css";
 import fundo_grade from "../static/fundo_grade.png";
@@ -24,64 +26,78 @@ function ComponenteImage(props) {
     // console.log(texto[0]);
     // array.push({ ref: componentRef, nome: texto[0].trim() });
     array.push(
-      <div ref={componentRef} className="container" key={index}>
-        <img src={fundo_grade} alt="" className="fundo" />
-        <img src={logo_iniciativa} alt="" className="logo" />
-        <div className="barras">
-          <div className="barra"></div>
-          <h4>fisweek</h4>
-          <div className="barra"></div>
-        </div>
-        <b>
-          <h1>CONVITE</h1>
-        </b>
-        <h3>
-          {texto[2].toLowerCase() === "masculino" ? "Prezado" : "Prezada"}{" "}
-          <b>{texto[0].trim()},</b>
-        </h3>
-        <h3>
-          24 meses depois,{" "}
-          <b className="fru_azul">
-            VOCÊ <img src={fru_azul} alt="" />
-          </b>
-          <br /> é{" "}
-          {texto[2].toLowerCase() === "masculino"
-            ? "nosso convidado"
-            : "nossa convidada"}{" "}
-          para o grande reencontro da Saúde.
-        </h3>
-        <div className="blue_hour">
-          <img src={forma} alt="" className="forma" />
-          <b className="fru_branco">
-            <img src={fru_branco} alt="" />
-            <h2>BLUE HOUR</h2>
-          </b>
-          <h2>
-            o momento em que os <br />
-            grandes da Saúde se reencontram
-          </h2>
-          <h4>
-            O espaço projetado para funcionar no centro do Rio de Janeiro foi
-            preparado para promover inteira- cões e conexões <b>presenciais</b>{" "}
-            entre as lideranças, parceiros, empreendedores e startups.
-          </h4>
-          <h4 className="small">
-            <b>Endereço:</b> Casa do Empresário Rua da Candelária 9, Mezanino
-          </h4>
-          <b>
-            <h4>Venha viver conosco esta experiência!</h4>
-          </b>
-          <div className="data">
-            <b>
-              <h2>{texto[1]}</h2>
-            </b>
-            <b>
-              <h2>16:00 às 21:00</h2>
-            </b>
+      <div>
+        <div ref={componentRef} className="container" key={index}>
+          <img src={fundo_grade} alt="" className="fundo" />
+          <img src={logo_iniciativa} alt="" className="logo" />
+          <div className="barras">
+            <div className="barra"></div>
+            <h4>fisweek</h4>
+            <div className="barra"></div>
           </div>
-          <h5>RSVP {texto[3].toLowerCase()} para este número.</h5>
+          <b>
+            <h1>CONVITE</h1>
+          </b>
+          <h3>
+            {texto[2].toLowerCase() === "masculino" ? "Prezado" : "Prezada"}{" "}
+            <b>{texto[0].trim()},</b>
+          </h3>
+          <h3>
+            24 meses depois,{" "}
+            <b className="fru_azul">
+              VOCÊ <img src={fru_azul} alt="" />
+            </b>
+            <br /> é{" "}
+            {texto[2].toLowerCase() === "masculino"
+              ? "nosso convidado"
+              : "nossa convidada"}{" "}
+            para o grande reencontro da Saúde.
+          </h3>
+          <div className="blue_hour">
+            <img src={forma} alt="" className="forma" />
+            <b className="fru_branco">
+              <img src={fru_branco} alt="" />
+              <h2>BLUE HOUR</h2>
+            </b>
+            <h2>
+              o momento em que os <br />
+              grandes da Saúde se reencontram
+            </h2>
+            <h4>
+              O espaço projetado para funcionar no centro do Rio de Janeiro foi
+              preparado para promover inteira- cões e conexões{" "}
+              <b>presenciais</b> entre as lideranças, parceiros, empreendedores
+              e startups.
+            </h4>
+            <h4 className="small">
+              <b>Endereço:</b> Casa do Empresário Rua da Candelária 9, Mezanino
+            </h4>
+            <b>
+              <h4>Venha viver conosco esta experiência!</h4>
+            </b>
+            <div className="data">
+              <b>
+                <h2>{texto[1]}</h2>
+              </b>
+              <b>
+                <h2>16:00 às 21:00</h2>
+              </b>
+            </div>
+            <h5>RSVP {texto[3].toLowerCase()} para este número.</h5>
+          </div>
+          <img src={powered_by} alt="" className="powered_by" />
         </div>
-        <img src={powered_by} alt="" className="powered_by" />
+        <button
+          className="download"
+          onClick={() =>
+            exportComponentAsPNG(componentRef, {
+              fileName: texto[0],
+              html2CanvasOptions: { backgroundColor: null },
+            })
+          }
+        >
+          Exportar como PNG
+        </button>
       </div>
     );
     return {
@@ -96,41 +112,7 @@ function ComponenteImage(props) {
     });
   }
 
-  return (
-    <>
-      <button
-        className="download"
-        onClick={(event) => {
-          event.target.disabled = true;
-          var count = 0;
-          teste.forEach(async (value) => {
-            // await pause(2000);
-            // exportComponentAsPNG(value.ref, {
-            //   fileName: value.nome,
-            //   html2CanvasOptions: { backgroundColor: null },
-            // });
-            html2canvas(value.ref.current, {
-              // // dpi: 144,
-              backgroundColor: "#FFFFFF",
-              // allowTaint: false,
-              // taintTest: false,
-            }).then((canvas) => {
-              console.log(canvas);
-              canvas.style.display = "none";
-              var image = canvas.toDataURL("png");
-              var a = document.createElement("a");
-              a.setAttribute("download", value.nome);
-              a.setAttribute("href", image);
-              a.click();
-            });
-          });
-        }}
-      >
-        Exportar tudo como PNG
-      </button>
-      {array}
-    </>
-  );
+  return <>{array}</>;
 }
 
 function onChange(event) {

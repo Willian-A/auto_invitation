@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Bai Jamjuree";
+}
+
+body {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.upload_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.upload_button div {
+  margin-left: 1rem;
+}
+
+.download {
+  margin-bottom: 2rem;
+}
+
+.container {
+  position: relative;
+  background-color: #f1eff0;
+  width: 600px;
+  max-width: 600px;
+  padding: 1rem 0 0;
+  margin: 0 auto 1rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container .fundo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+}
+
+.container .logo {
+  position: relative;
+  margin-bottom: 0.2rem;
+}
+
+.container .barras {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+.container .barras h4 {
+  font-weight: bold;
+  padding: 0 1rem;
+}
+
+.container .barras .barra {
+  height: 5px;
+  width: 100%;
+  background-color: #0101dd;
+}
+
+.container .blue_hour {
+  padding: 1rem 0 0;
+  position: relative;
+  margin-top: 3rem;
+  z-index: 1;
+  background-color: #0101dd;
+  color: white;
+}
+
+.container .blue_hour .forma {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.container .blue_hour .data {
+  background-color: white;
+  padding: 0.75rem 0;
+  max-width: 300px;
+  margin: 0 auto;
+  color: #0101dd;
+}
+
+.container .blue_hour .data h2 {
+  margin: 0;
+}
+
+.container .powered_by {
+  position: relative;
+  padding: 1rem;
+}
+
+b.fru_azul {
+  font-family: "Poppins";
+}
+
+b.fru_azul img {
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
+b.fru_branco img {
+  position: absolute;
+  left: 25%;
+  top: 3%;
+}
+
+b h1 {
+  font-weight: 900;
+  font-family: "Poppins";
+}
+
+b h2 {
+  font-weight: 900;
+  font-family: "Poppins";
+}
+
+b h4 {
+  font-weight: 600;
+  font-family: "Poppins";
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 32px;
+  font-weight: 400;
+}
+h4 {
+  font-size: 21px;
+  font-weight: 300;
+}
+
+h5 {
+  font-size: 18px;
+  padding: 0.5rem 0;
+  font-weight: 600;
+}
+
+h1,
+h2 {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+  margin: 0.5rem auto;
+}
+
+h3 {
+  position: relative;
+  z-index: 1;
+  max-width: 570px;
+  margin: 0.5rem auto;
+}
+
+h4 {
+  position: relative;
+  z-index: 1;
+  max-width: 500px;
+  margin: 1rem auto;
+}
+h4.small {
+  max-width: 300px;
+}

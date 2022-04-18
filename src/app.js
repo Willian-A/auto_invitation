@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import html2canvas from "html2canvas";
 import {
   exportComponentAsJPEG,
   exportComponentAsPNG,
@@ -20,6 +21,7 @@ function ComponenteImage(props) {
   let values = props.values;
   let teste = values.map((texto, index) => {
     const componentRef = React.useRef();
+    // console.log(texto[0]);
     // array.push({ ref: componentRef, nome: texto[0].trim() });
     array.push(
       <div ref={componentRef} className="container" key={index}>
@@ -88,16 +90,38 @@ function ComponenteImage(props) {
     };
   });
 
+  function pause(msec) {
+    return new Promise((resolve, reject) => {
+      setTimeout(resolve, msec || 1000);
+    });
+  }
+
   return (
     <>
       <button
         className="download"
         onClick={(event) => {
           event.target.disabled = true;
-          teste.forEach((value) => {
-            exportComponentAsPNG(value.ref, {
-              fileName: value.nome,
-              html2CanvasOptions: { backgroundColor: null },
+          var count = 0;
+          teste.forEach(async (value) => {
+            // await pause(2000);
+            // exportComponentAsPNG(value.ref, {
+            //   fileName: value.nome,
+            //   html2CanvasOptions: { backgroundColor: null },
+            // });
+            html2canvas(value.ref.current, {
+              // // dpi: 144,
+              backgroundColor: "#FFFFFF",
+              // allowTaint: false,
+              // taintTest: false,
+            }).then((canvas) => {
+              console.log(canvas);
+              canvas.style.display = "none";
+              var image = canvas.toDataURL("png");
+              var a = document.createElement("a");
+              a.setAttribute("download", value.nome);
+              a.setAttribute("href", image);
+              a.click();
             });
           });
         }}
